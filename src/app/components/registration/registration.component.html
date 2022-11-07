@@ -1,0 +1,83 @@
+<form [formGroup]="userForm" novalidate (ngSubmit)="onSubmit()">
+  <mat-card class="shipping-card">
+    <mat-card-header>
+      <mat-card-title>Cadastro de Usuário</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Nome" formControlName="name" [(ngModel)]="user.name" />
+            <mat-error *ngIf="userForm.controls['name'].hasError('required')">
+              Nome é <strong>obrigatório</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input
+              matInput
+              placeholder="Sobrenome"
+              formControlName="lastName"
+              [(ngModel)]="user.lastName"
+            />
+            <mat-error
+              *ngIf="userForm.controls['lastName'].hasError('required')"
+            >
+              Sobrenome é <strong>obrigatório</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input
+              matInput
+              placeholder="Data de Nascimento"
+              formControlName="birthDate"
+              [(ngModel)]="user.birthDate"
+              [matDatepicker]="picker"
+            />
+            <mat-hint>DD/MM/YYYY</mat-hint>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error
+              *ngIf="userForm.controls['birthDate'].hasError('required')"
+            >
+              Data de Nascimento é <strong>obrigatório</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Email" formControlName="email" [(ngModel)]="user.email" />
+            <mat-error *ngIf="userForm.controls['email'].hasError('required')">
+              Email é <strong>obrigatório</strong>
+            </mat-error>
+            <mat-error *ngIf="userForm.controls['email'].hasError('email')">
+              Email <strong>inválido</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <strong> Escolaridade</strong>
+          <mat-radio-group formControlName="education" [(ngModel)]="user.education" >
+            <div class="row radio-button" >
+              <mat-radio-button [value]="0">Infantil</mat-radio-button>
+              <mat-radio-button [value]="1">Fundamental</mat-radio-button>
+              <mat-radio-button [value]="2">Médio</mat-radio-button>
+              <mat-radio-button [value]="3">Superior</mat-radio-button>
+            </div>
+          </mat-radio-group>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions >
+      <button mat-raised-button color="primary" [disabled]="!userForm.valid" type="submit">Salvar</button>
+      <button mat-raised-button color="primary" routerLink="/search" >Voltar</button>
+    </mat-card-actions>
+  </mat-card>
+</form>
